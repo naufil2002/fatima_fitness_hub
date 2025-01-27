@@ -1,21 +1,25 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { AppContext } from "../App";
 import useScrollBlock from "../services/useScrollBlock";
 import { FiMenu } from "react-icons/fi";
 import { FaTimes } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Nav() {
-  const navRefs = React.useRef([]);
-  const { homeVisibility, sectionRefs, isBigWindow } =
-    React.useContext(AppContext);
+  const navRefs = useRef([]);
+  const { homeVisibility, sectionRefs, isBigWindow } = useContext(AppContext);
   const navClass = homeVisibility ? "nav--absolute" : "nav--fixed";
 
   const [blockScroll, allowScroll] = useScrollBlock();
+  const [showMenu, setShowMenu] = useState(false);
+  const [isWindowBig, setIsWindowBig] = useState(isBigWindow);
 
-  const [showMenu, setShowMenu] = React.useState(false);
+  const location = useLocation(); // Hook to track the current route
+
   function toggleMenu() {
-    if (!isBigWindow) {
+    if (!isWindowBig) {
       setShowMenu((prevShowMenu) => !prevShowMenu);
       if (showMenu) {
         allowScroll();
@@ -25,6 +29,26 @@ export default function Nav() {
     }
   }
 
+  useEffect(() => {
+    const handleResize = () => {
+      const windowIsBig = window.innerWidth >= 1200; // Adjust breakpoint as needed
+      setIsWindowBig(windowIsBig);
+
+      if (windowIsBig) {
+        setShowMenu(false); // Automatically close the menu on resize
+        allowScroll(); // Ensure scrolling is allowed
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [allowScroll]);
+
   const menu_icon = showMenu ? (
     <FaTimes onClick={toggleMenu} className="menu--icon" />
   ) : (
@@ -32,47 +56,9 @@ export default function Nav() {
   );
 
   const navStyles =
-    showMenu || isBigWindow ? { display: "flex" } : { display: "none" };
+    showMenu || isWindowBig ? { display: "flex" } : { display: "none" };
 
-  const [visibleSections, setVisibleSections] = React.useState({
-    home: false,
-    about: false,
-    classes: false,
-    schedules: false,
-    trainers: false,
-    contact: false,
-  });
-  const visibleSectionsArray = Object.entries(visibleSections);
-
-  React.useEffect(() => {
-    const visibleSectionOptions = {
-      rootMargin: "-90px 0px 0px",
-    };
-    const visibleSectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const id = entry.target.id;
-
-        setVisibleSections((prevVisibleSections) => {
-          return { ...prevVisibleSections, [`${id}`]: entry.isIntersecting };
-        });
-      });
-    }, visibleSectionOptions);
-    sectionRefs.current.forEach((element) => {
-      visibleSectionObserver.observe(element);
-    });
-  }, []);
-
-  React.useEffect(() => {
-    let isActiveCheck = false;
-    visibleSectionsArray.forEach((section, index) => {
-      if (section[1] && !isActiveCheck) {
-        navRefs.current[index].classList.add("active");
-        isActiveCheck = true;
-      } else {
-        navRefs.current[index].classList.remove("active");
-      }
-    });
-  }, [visibleSections]);
+  const isActive = (path) => (location.pathname === path ? "active" : "");
 
   return (
     <nav className={`${navClass}`}>
@@ -84,66 +70,45 @@ export default function Nav() {
         </div>
         <ul style={navStyles} className="nav--list slidein">
           <li onClick={toggleMenu}>
-            <Link
-              className="nav--link"
-              to="/"
-              ref={(element) => (navRefs.current[0] = element)}
-            >
+            <Link className={`nav--link ${isActive("/")}`} to="/">
               home
             </Link>
           </li>
           <li onClick={toggleMenu}>
-            <Link
-              className="nav--link"
-              to="/about"
-              ref={(element) => (navRefs.current[1] = element)}
-            >
+            <Link className={`nav--link ${isActive("/about")}`} to="/about">
               about
             </Link>
           </li>
-
           <li onClick={toggleMenu}>
-            <Link
-              className="nav--link"
-              to="/prices"
-              ref={(element) => (navRefs.current[2] = element)}
-            >
+            <Link className={`nav--link ${isActive("/prices")}`} to="/prices">
               prices
             </Link>
           </li>
           <li onClick={toggleMenu}>
             <Link
-              className="nav--link"
+              className={`nav--link ${isActive("/schedules")}`}
               to="/schedules"
-              ref={(element) => (navRefs.current[3] = element)}
             >
               schedules
             </Link>
           </li>
           <li onClick={toggleMenu}>
             <Link
-              className="nav--link"
+              className={`nav--link ${isActive("/acheivements")}`}
               to="/acheivements"
-              ref={(element) => (navRefs.current[4] = element)}
             >
               acheivements
             </Link>
           </li>
           <li onClick={toggleMenu}>
-            <Link
-              className="nav--link"
-              to="/contact"
-              ref={(element) => (navRefs.current[5] = element)}
-            >
+            <Link className={`nav--link ${isActive("/contact")}`} to="/contact">
               contact
             </Link>
           </li>
         </ul>
 
-        {!isBigWindow && (
-          <div className="nav--rightside-group">
-            {menu_icon}
-          </div>
+        {!isWindowBig && (
+          <div className="nav--rightside-group">{menu_icon}</div>
         )}
       </div>
     </nav>
