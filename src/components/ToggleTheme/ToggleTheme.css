@@ -1,0 +1,45 @@
+/* Toggle Theme */
+.toggle--theme {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  z-index: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  padding: 10px;
+}
+.toggle--theme > svg {
+  font-size: 20px;
+}
+
+.sun--icon,
+.moon--icon {
+  color: white;
+}
+
+.dark-theme .sun--icon,
+.light-theme .moon--icon {
+  opacity: 50%;
+}
+
+.bar {
+  width: 40px;
+  height: 20px;
+  border-radius: 15px;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.37);
+}
+.dark-theme .bar {
+  justify-content: flex-end;
+}
+.light-theme .bar {
+  justify-content: flex-start;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #ed563b;
+}
+/* Toggle Theme */

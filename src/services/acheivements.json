@@ -1,0 +1,26 @@
+{
+    "trainers": [
+      {
+        "id": 1,
+        "name": "Best Gym",
+        "image": "https://github.com/Matthew-19/TrainingStudio/blob/main/src/assets/images/first-trainer.jpg?raw=true",
+        "details": "Bitters cliche tattooed 8-bit distillery mustache. Keytar succulents gluten-free vegan church-key pour-over seitan flannel.",
+        "type": "1st Acheivement"
+      },
+      {
+        "id": 2,
+        "name": "MMA",
+        "image": "https://github.com/Matthew-19/TrainingStudio/blob/main/src/assets/images/second-trainer.jpg?raw=true",
+        "details": "Bitters cliche tattooed 8-bit distillery mustache. Keytar succulents gluten-free vegan church-key pour-over seitan flannel.",
+        "type": "2nd Acheivement"
+      },
+      {
+        "id": 3,
+        "name": "Boxing",
+        "image": "https://github.com/Matthew-19/TrainingStudio/blob/main/src/assets/images/third-trainer.jpg?raw=true",
+        "details": "Bitters cliche tattooed 8-bit distillery mustache. Keytar succulents gluten-free vegan church-key pour-over seitan flannel.",
+        "type": "3rd Acheivement"
+      }
+    ]
+  }
+  

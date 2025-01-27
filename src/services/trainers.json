@@ -1,0 +1,25 @@
+{
+  "trainers": [
+    {
+      "id": 1,
+      "name": "Bret D. Bowers",
+      "image": "https://github.com/Matthew-19/TrainingStudio/blob/main/src/assets/images/first-trainer.jpg?raw=true",
+      "details": "Bitters cliche tattooed 8-bit distillery mustache. Keytar succulents gluten-free vegan church-key pour-over seitan flannel.",
+      "type": "strength"
+    },
+    {
+      "id": 2,
+      "name": "Hector T. Daigl",
+      "image": "https://github.com/Matthew-19/TrainingStudio/blob/main/src/assets/images/second-trainer.jpg?raw=true",
+      "details": "Bitters cliche tattooed 8-bit distillery mustache. Keytar succulents gluten-free vegan church-key pour-over seitan flannel.",
+      "type": "muscle"
+    },
+    {
+      "id": 3,
+      "name": "Paul D. Newman",
+      "image": "https://github.com/Matthew-19/TrainingStudio/blob/main/src/assets/images/third-trainer.jpg?raw=true",
+      "details": "Bitters cliche tattooed 8-bit distillery mustache. Keytar succulents gluten-free vegan church-key pour-over seitan flannel.",
+      "type": "power"
+    }
+  ]
+}
