@@ -1,6 +1,6 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
-// import "./index.css"; // Add this for custom CSS
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer"; // Importing the hook
 
 function Calculator() {
   const [height, setHeight] = useState("");
@@ -29,11 +29,35 @@ function Calculator() {
     }
   };
 
+  // Intersection observer hook
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Trigger the animation only once
+    threshold: 0.3, // When 30% of the element is in the viewport
+  });
+
   return (
-    <div className="calculator">
-      <h1 className="title">BMI Calculator</h1>
-      
-      <div className="input-group">
+    <motion.div
+      className="calculator"
+      ref={ref} // Applying the ref to track visibility
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: inView ? 1 : 0, scale: inView ? 1 : 0.8 }} // Animating based on visibility
+      transition={{ duration: 0.5 }}
+    >
+      <motion.h1
+        className="title"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : -50 }}
+        transition={{ duration: 0.6 }}
+      >
+        BMI Calculator
+      </motion.h1>
+
+      <motion.div
+        className="input-group"
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: inView ? 1 : 0, x: inView ? 0 : -50 }}
+        transition={{ duration: 0.6 }}
+      >
         <label htmlFor="height">Height (cm)</label>
         <input
           type="number"
@@ -42,9 +66,14 @@ function Calculator() {
           value={height}
           onChange={(e) => setHeight(e.target.value)}
         />
-      </div>
-      
-      <div className="input-group">
+      </motion.div>
+
+      <motion.div
+        className="input-group"
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: inView ? 1 : 0, x: inView ? 0 : 50 }}
+        transition={{ duration: 0.6 }}
+      >
         <label htmlFor="weight">Weight (kg)</label>
         <input
           type="number"
@@ -53,19 +82,30 @@ function Calculator() {
           value={weight}
           onChange={(e) => setWeight(e.target.value)}
         />
-      </div>
+      </motion.div>
 
-      <button className="calculate-btn" onClick={calculateBmi}>
+      <motion.button
+        className="calculate-btn"
+        onClick={calculateBmi}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: inView ? 1 : 0 }}
+        transition={{ duration: 0.5 }}
+      >
         Calculate BMI
-      </button>
+      </motion.button>
 
       {bmi && (
-        <div className="result">
+        <motion.div
+          className="result"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 50 }}
+          transition={{ duration: 0.6 }}
+        >
           <p>Your BMI: <strong>{bmi}</strong></p>
           <p>{message}</p>
-        </div>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 }
 
