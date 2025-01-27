@@ -65,7 +65,7 @@ export default function Nav() {
       <div className="container">
         <div className="nav--logo">
           <a className="nav--link" href="#home">
-            training <span className="orange--word">studio</span>
+            Fitness <span className="orange--word">Aim</span>
           </a>
         </div>
         <ul style={navStyles} className="nav--list slidein">

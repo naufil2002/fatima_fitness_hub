@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion"; // Import Framer Motion
 import { AppContext } from "../App";
 import SectionHeader from "../components/SectionHeader/index";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
@@ -8,27 +9,10 @@ export default function Schedules() {
   const { sectionRefs, isBigWindow } = React.useContext(AppContext);
 
   const [open, setOpen] = React.useState(false);
-  function handleDropdown() {
-    setOpen((prevOpen) => !prevOpen);
-  }
-  const dropdownStyles = {
-    display: open || isBigWindow ? "flex" : "none",
-  };
-  const dropdownArrow = open ? <IoIosArrowUp /> : <IoIosArrowDown />;
-
   const [selectedDay, setSelectedDay] = React.useState({
     day: "monday",
     no: 0,
   });
-
-  function handleSelectedDay(event, id) {
-    const { name, value } = event.target;
-    setSelectedDay({
-      [name]: value,
-      no: id,
-    });
-    setOpen((prevOpen) => !prevOpen);
-  }
 
   const schedulesData = data.schedules;
   const trainingClasses = [
@@ -38,18 +22,34 @@ export default function Schedules() {
     { title: "yoga training class", trainer: "hector t. daigle" },
     { title: "advanced training", trainer: "bret d. bowers" },
   ];
-  const timetable = schedulesData.map((daySchedule) => {
-    return trainingClasses.map((trainingClass) => {
+
+  const handleDropdown = () => setOpen((prev) => !prev);
+
+  const handleSelectedDay = (event, id) => {
+    const { value } = event.target;
+    setSelectedDay({ day: value, no: id });
+    setOpen(false);
+  };
+
+  const dropdownArrow = open ? <IoIosArrowUp /> : <IoIosArrowDown />;
+  const dropdownStyles = { display: open || isBigWindow ? "flex" : "none" };
+
+  const timetable = schedulesData.map((daySchedule) =>
+    trainingClasses.map((trainingClass) => {
       const isAvailable = daySchedule.classes.some(
         (availableClass) => availableClass.title === trainingClass.title
       );
+
       if (isAvailable) {
         return daySchedule.classes.map((availableClass) => {
           if (availableClass.title === trainingClass.title) {
             return (
-              <div
+              <motion.div
                 key={`${daySchedule.day}-${availableClass.title}`}
                 className="timetable--classContent"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
               >
                 <div className="timetable--classTitle">
                   {availableClass.title}
@@ -67,25 +67,28 @@ export default function Schedules() {
                 <div className="timetable--trainer">
                   {availableClass.trainer}
                 </div>
-              </div>
+              </motion.div>
             );
           }
         });
       } else {
         return (
-          <div
+          <motion.div
             key={`${daySchedule.day}-${trainingClass.title}`}
             className="timetable--classContent"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
             <div className="timetable--classTitle">{trainingClass.title}</div>
             <div className="timetable--morning">-</div>
             <div className="timetable--evening">-</div>
             <div className="timetable--trainer">{trainingClass.trainer}</div>
-          </div>
+          </motion.div>
         );
       }
-    });
-  });
+    })
+  );
 
   return (
     <section
@@ -95,91 +98,63 @@ export default function Schedules() {
     >
       <div className="container">
         <SectionHeader>
-          <SectionHeader.Title>
-            <span className="dark-bg--normal-word">CLASSES</span>{" "}
-            <span className="orange--word">SCHEDULE</span>
-          </SectionHeader.Title>
-          <SectionHeader.Desc>
-            Nunc urna sem, laoreet ut metus id, aliquet consequat magna. Sed
-            viverra ipsum dolor, ultricies fermentum massa consequat eu.
-          </SectionHeader.Desc>
+          <motion.div
+            initial={{ opacity: 0, y: -30 }} // Start above and invisible
+            animate={{ opacity: 1, y: 0 }} // Fade in and slide down smoothly
+            transition={{ duration: 1, ease: "easeOut" }} // Smooth easing transition
+          >
+            <SectionHeader.Title>
+              <span className="dark-bg--normal-word">CLASSES</span>{" "}
+              <span className="orange--word">SCHEDULE</span>
+            </SectionHeader.Title>
+            <SectionHeader.Desc>
+              Nunc urna sem, laoreet ut metus id, aliquet consequat magna. Sed
+              viverra ipsum dolor, ultricies fermentum massa consequat eu.
+            </SectionHeader.Desc>
+          </motion.div>
         </SectionHeader>
+
         <div className="schedules--main">
+          {/* Day Selector */}
           <div className="schedules--days-filter">
             {!isBigWindow && (
               <button
                 className="schedules--select-button main--button"
                 onClick={handleDropdown}
               >
-                <span className="schedules--select-value">{selectedDay.day}</span>
+                <span className="schedules--select-value">
+                  {selectedDay.day}
+                </span>
                 <span className="schedules--select-arrow">{dropdownArrow}</span>
               </button>
             )}
+
             <ul
               style={dropdownStyles}
               className="schedules--days-list schedules--dropdown-menu"
             >
-              <li className="schedules--day-item">
-                <input
-                  type="radio"
-                  id="monday"
-                  name="day"
-                  value="monday"
-                  onChange={(event) => handleSelectedDay(event, 0)}
-                  checked={selectedDay.day === "monday"}
-                />
-                <label htmlFor="monday">monday</label>
-              </li>
-              <div className="schedules--day-separator">/</div>
-              <li className="schedules--day-item">
-                <input
-                  type="radio"
-                  id="tuesday"
-                  name="day"
-                  value="tuesday"
-                  onChange={(event) => handleSelectedDay(event, 1)}
-                  checked={selectedDay.day === "tuesday"}
-                />
-                <label htmlFor="tuesday">tuesday</label>
-              </li>
-              <div className="schedules--day-separator">/</div>
-              <li className="schedules--day-item">
-                <input
-                  type="radio"
-                  id="wednesday"
-                  name="day"
-                  value="wednesday"
-                  onChange={(event) => handleSelectedDay(event, 2)}
-                  checked={selectedDay.day === "wednesday"}
-                />
-                <label htmlFor="wednesday">wednesday</label>
-              </li>
-              <div className="schedules--day-separator">/</div>
-              <li className="schedules--day-item">
-                <input
-                  type="radio"
-                  id="thursday"
-                  name="day"
-                  value="thursday"
-                  onChange={(event) => handleSelectedDay(event, 3)}
-                  checked={selectedDay.day === "thursday"}
-                />
-                <label htmlFor="thursday">thursday</label>
-              </li>
-              <div className="schedules--day-separator">/</div>
-              <li className="schedules--day-item">
-                <input
-                  type="radio"
-                  id="friday"
-                  name="day"
-                  value="friday"
-                  onChange={(event) => handleSelectedDay(event, 4)}
-                  checked={selectedDay.day === "friday"}
-                />
-                <label htmlFor="friday">friday</label>
-              </li>
+              {schedulesData.map((schedule, index) => (
+                <React.Fragment key={schedule.day}>
+                  <li className="schedules--day-item">
+                    <input
+                      type="radio"
+                      id={schedule.day}
+                      name="day"
+                      value={schedule.day}
+                      onChange={(event) => handleSelectedDay(event, index)}
+                      checked={selectedDay.day === schedule.day}
+                    />
+                    <label htmlFor={schedule.day}>{schedule.day}</label>
+                  </li>
+                  {index < schedulesData.length - 1 && (
+                    <div className="schedules--day-separator">/</div>
+                  )}
+                </React.Fragment>
+              ))}
             </ul>
           </div>
+
+          {/* Timetable */}
           <div className="schedules--timetable">
             {timetable[selectedDay.no]}
           </div>
