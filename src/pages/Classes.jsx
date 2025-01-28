@@ -81,13 +81,13 @@ const Classes = () => {
         </div>
         <div className="classes--class-name">{classItem.name}</div>
         <div className="classes--class-details">{classItem.details}</div>
-        <motion.div
+        {/* <motion.div
           className="main--button classes--classPreview-btn"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
           view schedule
-        </motion.div>
+        </motion.div> */}
       </motion.div>
     );
   });

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { AppContext } from "../App";
 import SectionHeader from "../components/SectionHeader/index";
 import data from "../services/acheivements.json";
 
 export default function Trainers() {
+        useEffect(() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }, []);
   const { sectionRefs } = React.useContext(AppContext);
   const trainersData = data.trainers;
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion, useInView } from "framer-motion"; // Import framer-motion
 import List from "../components/List";
 import Text from "../components/Text";
@@ -7,6 +7,9 @@ import Card from "../components/Card";
 import { MembershipPlans } from "../services/membership";
 
 const Membership = () => {
+      useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, []);
   // Animation Variants for the cards
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },

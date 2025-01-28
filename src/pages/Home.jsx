@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import gymVideo from "../assets/images/gym-video.mp4";
 import MainButton from "../components/mainButton";
@@ -7,8 +7,13 @@ import CallToAction from "../components/CallToAction";
 import Classes from "./Classes";
 import Trainers from "./Trainers";
 import Calculator from "./Calculator";
+import { Link } from "react-router-dom";
 
 export default function Home() {
+  // Scroll to the top when the component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   const { homeRef, setHomeVisibility, sectionRefs } =
     React.useContext(AppContext);
 
@@ -49,7 +54,13 @@ export default function Home() {
   return (
     <>
       <section ref={homeRefsMerged} id="home" className="home">
-        <video autoPlay loop muted src={gymVideo} className="home--video"></video>
+        <video
+          autoPlay
+          loop
+          muted
+          src={gymVideo}
+          className="home--video"
+        ></video>
         <div className="container">
           <motion.div
             className="home--caption"
@@ -67,7 +78,12 @@ export default function Home() {
             animate="visible"
             variants={buttonVariants}
           >
-            <MainButton>become a member</MainButton>
+            <Link
+              // className={`nav--link ${isActive("/schedules")}`}
+              to="/prices"
+            >
+              <MainButton>view prices</MainButton>
+            </Link>
           </motion.div>
         </div>
       </section>

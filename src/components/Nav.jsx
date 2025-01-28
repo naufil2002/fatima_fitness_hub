@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-// eslint-disable-next-line no-unused-vars
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { AppContext } from "../App";
 import useScrollBlock from "../services/useScrollBlock";
@@ -8,8 +6,11 @@ import { FaTimes } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 
 export default function Nav() {
+  // eslint-disable-next-line no-unused-vars
   const navRefs = useRef([]);
-  const { homeVisibility, sectionRefs, isBigWindow } = useContext(AppContext);
+  // eslint-disable-next-line no-unused-vars
+  const { homeVisibility, setHomeVisibility, sectionRefs, isBigWindow } =
+    useContext(AppContext);
   const navClass = homeVisibility ? "nav--absolute" : "nav--fixed";
 
   const [blockScroll, allowScroll] = useScrollBlock();
@@ -48,6 +49,12 @@ export default function Nav() {
       window.removeEventListener("resize", handleResize);
     };
   }, [allowScroll]);
+
+  // Update `homeVisibility` on location change
+  useEffect(() => {
+    const isAtHome = location.pathname === "/";
+    setHomeVisibility(isAtHome);
+  }, [location, setHomeVisibility]);
 
   const menu_icon = showMenu ? (
     <FaTimes onClick={toggleMenu} className="menu--icon" />

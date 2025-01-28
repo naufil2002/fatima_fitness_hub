@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useEffect } from "react";
 import dumbbell from "../assets/images/features-first-icon.png";
 import { AppContext } from "../App";
 import SectionHeader from "../components/SectionHeader/index";
@@ -7,6 +7,9 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 export default function About() {
+        useEffect(() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }, []);
   const { sectionRefs } = React.useContext(AppContext);
 
   // Animation for each card

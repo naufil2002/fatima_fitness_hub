@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import SectionHeader from "../components/SectionHeader/index";
 import { AppContext } from "../App";
 
 export default function Contact() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   const { sectionRefs } = React.useContext(AppContext);
 
   const containerVariants = {
@@ -36,10 +40,10 @@ export default function Contact() {
       <div className="container">
         {/* Header Section */}
         <motion.div
-                   initial={{ opacity: 0, y: -30 }} // Start above and invisible
-                   animate={{ opacity: 1, y: 0 }} // Fade in and slide down smoothly
-                   transition={{ duration: 1, ease: "easeOut" }} // Smooth easing transition
-                 >
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+        >
           <SectionHeader>
             <SectionHeader.Title>
               <span className="dark-bg--normal-word">Stay</span>{" "}
@@ -60,7 +64,7 @@ export default function Contact() {
             variants={cardVariants}
             initial="hidden"
             animate="visible"
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.4 }} // Removed delay for instant appearance
           >
             <iframe
               title="Mumbai Map"
@@ -118,8 +122,8 @@ export default function Contact() {
             </fieldset>
             <motion.button
               className="main--button"
-              initial={{ opacity: 0, scale: 0.8 }} // Button starts smaller
-              animate={{ opacity: 1, scale: 1 }} // Button scales up
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.8 }}
             >
               send message

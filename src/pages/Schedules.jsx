@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion"; // Import Framer Motion
 import { AppContext } from "../App";
 import SectionHeader from "../components/SectionHeader/index";
@@ -6,6 +6,9 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import data from "../services/schedules.json";
 
 export default function Schedules() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []); // Runs only once when the component mounts
   const { sectionRefs, isBigWindow } = React.useContext(AppContext);
 
   const [open, setOpen] = React.useState(false);
