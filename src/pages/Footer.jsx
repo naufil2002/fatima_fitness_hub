@@ -44,28 +44,29 @@ export default function CallToAction() {
           {/* Contact Us Column */}
           <div className="footer-section">
             <h3>Contact Us</h3>
-            <p>Email: support@webhub.com</p>
-            <p>Phone: +91-9876543210</p>
-            <p>Location: Navi Mumbai, India</p>
+            <p>Email: bfc@gmail.com</p>
+            <p>Phone: +91-9999999999</p>
+            <p>Location: Bhiwandi, India</p>
           </div>
 
           {/* Social Links Column */}
           <div className="footer-section">
             <h3>Follow Us</h3>
             <div className="social-icons">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                <img src="./assets/icons/instagram.svg" alt="Instagram" />
-              </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                <img src="./assets/icons/facebook.svg" alt="Facebook" />
-              </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                <img src="./assets/icons/twitter.svg" alt="Twitter" />
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                <img src="./assets/icons/linkedin.svg" alt="LinkedIn" />
-              </a>
-            </div>
+  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+    <i className="fab fa-instagram"></i>
+  </a>
+  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+    <i className="fab fa-facebook"></i>
+  </a>
+  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+    <i className="fab fa-twitter"></i>
+  </a>
+  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+    <i className="fab fa-linkedin"></i>
+  </a>
+</div>
+
           </div>
         </div>
       </div>

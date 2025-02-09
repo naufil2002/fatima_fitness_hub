@@ -72,7 +72,7 @@ export default function Nav() {
       <div className="container">
         <div className="nav--logo">
           <a className="nav--link" href="#home">
-            Fitness <span className="orange--word">Aim</span>
+            Bhiwandi Fight <span className="orange--word">Club</span>
           </a>
         </div>
         <ul style={navStyles} className="nav--list slidein">

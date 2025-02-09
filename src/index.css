@@ -1,4 +1,19 @@
 /* Variables */
+.social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icons a {
+  font-size: 24px; /* Adjust size */
+  color: #333; /* Default color */
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #ed563b; /* Change color on hover */
+}
+
 :root {
   /* LightTheme */
   --lightTheme-overlay-color: rgba(35, 45, 57, 0.8);

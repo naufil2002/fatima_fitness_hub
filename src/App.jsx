@@ -9,6 +9,7 @@ import Contact from "./pages/Contact";
 // import CallToAction from "./components/CallToAction"
 import Footer from "./pages/Footer"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const AppContext = React.createContext();
 export { AppContext };
