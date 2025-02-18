@@ -44,9 +44,9 @@ export default function CallToAction() {
           {/* Contact Us Column */}
           <div className="footer-section">
             <h3>Contact Us</h3>
-            <p>Email: bfc@gmail.com</p>
+            <p>Email: fatimafitnesshub@gmail.com</p>
             <p>Phone: +91-9999999999</p>
-            <p>Location: Bhiwandi, India</p>
+            <p>Location: Mumbra, India</p>
           </div>
 
           {/* Social Links Column */}
